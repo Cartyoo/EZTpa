@@ -27,7 +27,7 @@ public class TPACommand extends BaseCommand {
 
         requests.put(player.getUniqueId(), target.getPlayer().getUniqueId());
         player.sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpa.request-sent").replaceAll("<target>", target.getPlayer().getName())));
-        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpa.requested").replaceAll("<player>", player.getName())));
+        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpa.requested").replaceAll("<player>", player.getName()).replaceAll("\\n", "\n")));
 
     }
 
@@ -36,7 +36,9 @@ public class TPACommand extends BaseCommand {
     public void accept(Player player, OnlinePlayer target) {
         if(requests.containsValue(player.getUniqueId())) {
             Location location = target.getPlayer().getLocation();
-            target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaaccept.teleporting").replaceAll("<target>", target.getPlayer().getName())));
+            target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.teleporting").replaceAll("<target>", player.getName())));
+
+            player.sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.accepted").replaceAll("<player>", target.getPlayer().getName() + (target.getPlayer().getName().endsWith("s") ? "'" : "'s"))));
 
             new BukkitRunnable() {
                 int waited = 0;
@@ -44,7 +46,8 @@ public class TPACommand extends BaseCommand {
                 @Override
                 public void run() {
                     if(target.getPlayer().getLocation().distance(location) > 0.7) {
-                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaaccept.cancelled-movement")));
+                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.cancelled-movement")));
+                        player.sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.cancelled-player").replaceAll("<player>", target.getPlayer().getName())));
                         requests.remove(target.getPlayer().getUniqueId());
                         cancel();
                         return;
@@ -59,7 +62,7 @@ public class TPACommand extends BaseCommand {
 
                     if(waited >= 100) {
                         target.getPlayer().teleport(player.getLocation());
-                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.teleported").replaceAll("<player>", player.getName())));
+                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.teleported").replaceAll("<target>", player.getName())));
                         player.sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.teleported-player").replaceAll("<player>", target.getPlayer().getName())));
                         requests.remove(target.getPlayer().getUniqueId());
                         cancel();
