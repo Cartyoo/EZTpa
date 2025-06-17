@@ -2,7 +2,6 @@ package xyz.herberto.eZTpa.utils;
 
 import lombok.Getter;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import xyz.herberto.eZTpa.EZTpa;
 
 import java.util.HashMap;
