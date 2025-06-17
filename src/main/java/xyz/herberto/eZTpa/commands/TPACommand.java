@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import xyz.herberto.eZTpa.EZTpa;
 import xyz.herberto.eZTpa.utils.CC;
 
@@ -31,19 +32,43 @@ public class TPACommand extends BaseCommand {
 
     }
 
-    @Subcommand("accept")
+    @CommandAlias("tpaccept|tpaaccept")
     @Description("Accept a teleport request")
     public void accept(Player player, OnlinePlayer target) {
         if(requests.containsValue(player.getUniqueId())) {
             Location location = player.getLocation();
             player.sendMessage(CC.translate("&aTeleporting to &f" + target.getPlayer().getName() + ". &2Please do not move!"));
 
-            EZTpa.getInstance().getServer().getScheduler().runTaskTimer(EZTpa.getInstance(), () -> {
-                if(player.getLocation().distance(location) > 0.7) {
-                    player.sendMessage(CC.translate("&cTeleport request cancelled due to movement."));
-                    return;
+            new BukkitRunnable() {
+                int waited = 0;
+
+                @Override
+                public void run() {
+                    if(player.getLocation().distance(location) > 0.7) {
+                        player.sendMessage(CC.translate("&cTeleport request cancelled due to movement."));
+                        requests.remove(target.getPlayer().getUniqueId());
+                        cancel();
+                        return;
+                    }
+                    waited += 20;
+
+                    if (waited % 20 == 0 && waited <= 80) {
+                        int secondsLeft = 5 - (waited / 20);
+                        player.sendMessage(CC.translate("&2" + secondsLeft + "..."));
+                    }
+
+
+                    if(waited >= 100) {
+                        player.teleport(target.getPlayer());
+                        player.sendMessage(CC.translate("&aYou have teleported to &f" + target.getPlayer().getName()));
+                        requests.remove(target.getPlayer().getUniqueId());
+                        cancel();
+                    }
                 }
-            }, 20L, 20L);
+            }.runTaskTimer(EZTpa.getInstance(), 0, 20);
+
+        } else {
+            player.sendMessage(CC.translate("&cYou do not have a pending teleport request for &f" + target.getPlayer().getName()));
         }
     }
 
