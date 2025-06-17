@@ -52,7 +52,7 @@ public class TPACommand extends BaseCommand {
                 @Override
                 public void run() {
                     if(target.getPlayer().getLocation().distance(location) > 0.7) {
-                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.tpaccept.cancelled.movement")));
+                        target.getPlayer().sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.cancelled.movement")));
                         player.sendMessage(CC.translate(EZTpa.getInstance().getConfig().getString("messages.cancelled.cancelled-player").replaceAll("<player>", target.getPlayer().getName())));
                         TPAUtils.getRequests().remove(target.getPlayer().getUniqueId());
                         cancel();

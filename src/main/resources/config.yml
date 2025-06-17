@@ -2,7 +2,7 @@
 messages:
   tpa:
     request-sent: '&aYou have requested to teleport to &f<target>'
-    requested: "&f<player> &ahas requested to teleport to you.\n&aYou can accept it with &f/tpaccept <player>" # " to allow the \n
+    requested: "&f<player> &ahas requested to teleport to you.\n&aYou can &2accept&a it with &f/tpaccept\n&aYou can &cdeny&a it with &f/tpdeny" # " to allow the \n
     pending-request: '&f<target> &calready has a pending teleport request.'
 
   tpaccept:

@@ -2,3 +2,5 @@ name: EZTpa
 version: '1.0.0'
 main: xyz.herberto.eZTpa.EZTpa
 api-version: '1.21'
+author: herberto
+description: A simple, yet effective teleport request plugin
