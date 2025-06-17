@@ -9,12 +9,26 @@ messages:
     accepted: '&aYou have accepted &f<player>&a teleport request.'
     teleporting: '&aTeleporting to &f<target>&a. &2Please do not move!'
 
-    cancelled-movement: '&cTeleport request cancelled due to movement.'
-    cancelled-player: '&cThe teleport request from &f<player>&c has been cancelled.'
 
     timer: '&2<time-remaining>...'
 
     teleported: '&aYou have teleported to &f<target>'
     teleported-player: '&f<player> &ahas teleported to you.'
 
-    no-requests: '&cYou do not have a pending teleport request for &f<target>'
+    no-requests: '&cYou do not have a pending teleport request from &f<target>'
+
+  tpdeny:
+    denied-player: '&aYou have denied the teleport request from &f<player>'
+    denied: '&cYour teleport request to &f<target>&c has been denied.'
+
+  cancelled:
+    movement: '&cTeleport to &f<target>&c request cancelled due to movement.'
+
+    cancelled: '&cTeleport request to &f<target>&c cancelled.'
+    cancelled-player: '&cThe teleport request from &f<player>&c has been cancelled.'
+
+
+  eztpa:
+    reloaded: '&aThe configuration file has been reloaded!'
+
+requests-clear-interval: 30 # seconds - clears tpa requests that have not been accepted nor denied
