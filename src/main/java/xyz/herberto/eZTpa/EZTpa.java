@@ -16,6 +16,8 @@ public final class EZTpa extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        saveDefaultConfig();
+
         PaperCommandManager manager = new PaperCommandManager(this);
         manager.enableUnstableAPI("help");
 

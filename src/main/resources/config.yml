@@ -1,0 +1,16 @@
+
+messages:
+  tpa:
+    request-sent: '&aYou have requested to teleport to &f<target>'
+    requested: '&f<player> &ahas requested to teleport to you.\n&aYou can accept it with &f/tpaccept <player>'
+    pending-request: '&f<target> &calready has a pending teleport request.'
+
+  tpaccept:
+    teleporting: '&aTeleporting to &f<target>&a. &2Please do not move!'
+    cancelled-movement: '&cTeleport request cancelled due to movement.'
+    timer: '&2<time-remaining>...'
+
+    teleported: '&aYou have teleported to &f<target>'
+    teleported-player: '&f<player> &ahas teleported to you.'
+
+    no-requests: '&cYou do not have a pending teleport request for &f<target>'
